@@ -1,25 +1,34 @@
 package service.basesyntax.main;
 
-import service.basesyntax.model.FruitTransaction;
-import service.basesyntax.model.Storage;
-import service.basesyntax.service.ReaderService;
-import service.basesyntax.service.ShopService;
-import service.basesyntax.service.ShopServiceImpl;
-import service.basesyntax.service.WriterService;
-import service.basesyntax.service.handler.*;
-import service.basesyntax.service.strategy.OperationStrategyImpl;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import service.basesyntax.model.FruitTransaction;
+import service.basesyntax.model.Storage;
+import service.basesyntax.service.ReaderServiceImpl;
+import service.basesyntax.service.ShopService;
+import service.basesyntax.service.ShopServiceImpl;
+import service.basesyntax.service.TransactionParser;
+import service.basesyntax.service.TransactionParserImpl;
+import service.basesyntax.service.TransactionReaderService;
+import service.basesyntax.service.WriterServiceImpl;
+import service.basesyntax.service.handler.BalanceHandler;
+import service.basesyntax.service.handler.OperationHandler;
+import service.basesyntax.service.handler.PurchaseHandler;
+import service.basesyntax.service.handler.ReturnHandler;
+import service.basesyntax.service.handler.SupplyHandler;
+import service.basesyntax.service.strategy.OperationStrategyImpl;
 
 public class Main {
-    private final static String PATH_TO_READ = "src/main/resources/reportToRead.csv";
-    private final static String PATH_TO_WRITE = "src/main/resources/reportToWrite.csv";
+    private static final String PATH_TO_READ = "src/main/resources/reportToRead.csv";
+    private static final String PATH_TO_WRITE = "src/main/resources/reportToWrite.csv";
 
     public static void main(String[] args) {
-        ReaderService readerService = new ReaderService();
-        List<FruitTransaction> transactions = readerService.readFromFile(PATH_TO_READ);
+
+        ReaderServiceImpl readerService = new ReaderServiceImpl();
+        TransactionParser transactionParser = new TransactionParserImpl();
+        TransactionReaderService transactionReader =
+                new TransactionReaderService(readerService, transactionParser);
 
         Map<FruitTransaction.Operation, OperationHandler> storageStrategy = new HashMap<>();
         storageStrategy.put(FruitTransaction.Operation.BALANCE, new BalanceHandler());
@@ -30,11 +39,11 @@ public class Main {
         OperationStrategyImpl operationStrategy = new OperationStrategyImpl(storageStrategy);
 
         Storage storage = new Storage();
-
+        List<FruitTransaction> transactions = transactionReader.readTransactions(PATH_TO_READ);
         ShopService shopService = new ShopServiceImpl(operationStrategy, storage);
         shopService.process(transactions);
 
-        WriterService writerService = new WriterService();
-        writerService.write(??????, PATH_TO_WRITE);
+        WriterServiceImpl writerService = new WriterServiceImpl();
+        writerService.write(storage.getStorage(), PATH_TO_WRITE);
     }
 }

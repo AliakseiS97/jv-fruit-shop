@@ -1,11 +1,10 @@
 package service.basesyntax.service;
 
+import java.util.List;
 import service.basesyntax.model.FruitTransaction;
 import service.basesyntax.model.Storage;
 import service.basesyntax.service.handler.OperationHandler;
 import service.basesyntax.service.strategy.OperationStrategy;
-
-import java.util.List;
 
 public class ShopServiceImpl implements ShopService {
     private final OperationStrategy operationStrategy;

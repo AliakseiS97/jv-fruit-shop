@@ -57,7 +57,7 @@ the most suitable for your needs.
     
 - Bad:
     ```java
-    public class ReaderServiceImpl implements service.basesyntax.service.ReaderService {
+    public class ReaderServiceImpl implements service.basesyntax.service.ReaderServiceImpl {
        public List<String> readFromFile() {
           File file = new File("src/main/resources/file.txt");
           ...
@@ -66,7 +66,7 @@ the most suitable for your needs.
     ```     
 - Good:
     ```java
-    import service.basesyntax.service.ReaderService;public class ReaderServiceImpl implements ReaderService {
+    public class ReaderServiceImpl implements service.basesyntax.service.ReaderServiceImpl {
        public List<String> readFromFile(String filePath) {
           File file = new File(filePath);
           ...

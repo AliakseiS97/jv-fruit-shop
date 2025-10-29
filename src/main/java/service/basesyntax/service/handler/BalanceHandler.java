@@ -1,8 +1,7 @@
 package service.basesyntax.service.handler;
 
-import service.basesyntax.model.FruitTransaction;
-
 import java.util.Map;
+import service.basesyntax.model.FruitTransaction;
 
 public class BalanceHandler implements OperationHandler {
     @Override
