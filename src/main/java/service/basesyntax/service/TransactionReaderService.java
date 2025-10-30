@@ -1,29 +1,18 @@
 package service.basesyntax.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import service.basesyntax.model.FruitTransaction;
 
 public class TransactionReaderService {
     private final ReaderService readerService;
-    private final TransactionParser transactionParser;
 
-    public TransactionReaderService(ReaderService readerService,
-                                    TransactionParser transactionParser) {
+    public TransactionReaderService(ReaderService readerService) {
         this.readerService = readerService;
-        this.transactionParser = transactionParser;
     }
 
-    public List<FruitTransaction> readTransactions(String path) {
-        List<String> lines = readerService.readLines(path);
-        List<FruitTransaction> transactions = new ArrayList<>();
-
-        for (String line : lines) {
-            if (line.trim().isEmpty() || line.startsWith("type")) {
-                continue;
-            }
-            transactions.add(transactionParser.parse(line));
+    public List<String> readTransactions(String path) {
+        if (path == null) {
+            throw new NullPointerException("path is null");
         }
-        return transactions;
+        return readerService.readLines(path);
     }
 }

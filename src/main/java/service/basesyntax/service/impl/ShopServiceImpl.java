@@ -1,9 +1,10 @@
-package service.basesyntax.service;
+package service.basesyntax.service.impl;
 
 import java.util.List;
-import service.basesyntax.model.FruitTransaction;
-import service.basesyntax.model.Storage;
-import service.basesyntax.service.handler.OperationHandler;
+import service.basesyntax.db.FruitTransaction;
+import service.basesyntax.db.Storage;
+import service.basesyntax.service.ShopService;
+import service.basesyntax.service.strategy.OperationHandler;
 import service.basesyntax.service.strategy.OperationStrategy;
 
 public class ShopServiceImpl implements ShopService {
@@ -17,6 +18,9 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void process(List<FruitTransaction> transactions) {
+        if (transactions == null || transactions.isEmpty()) {
+            throw new IllegalArgumentException("transactions is null or empty");
+        }
         for (FruitTransaction transaction : transactions) {
             FruitTransaction.Operation operation = transaction.getOperation();
             OperationHandler handler = operationStrategy.getHandler(operation);
