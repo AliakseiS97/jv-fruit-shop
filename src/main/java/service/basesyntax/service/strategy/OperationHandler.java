@@ -1,8 +1,8 @@
 package service.basesyntax.service.strategy;
 
-import java.util.Map;
-import service.basesyntax.db.FruitTransaction;
+import service.basesyntax.db.Storage;
+import service.basesyntax.model.FruitTransaction;
 
 public interface OperationHandler {
-    void apply(Map<String, Integer> storage, FruitTransaction transaction);
+    void apply(Storage storage, FruitTransaction transaction);
 }

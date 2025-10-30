@@ -1,4 +1,4 @@
-package service.basesyntax.db;
+package service.basesyntax.model;
 
 public class FruitTransaction {
     private Operation operation;

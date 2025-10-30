@@ -2,7 +2,7 @@ package service.basesyntax.service.impl;
 
 import java.util.Collections;
 import java.util.Map;
-import service.basesyntax.db.FruitTransaction;
+import service.basesyntax.model.FruitTransaction;
 import service.basesyntax.service.strategy.OperationHandler;
 import service.basesyntax.service.strategy.OperationStrategy;
 

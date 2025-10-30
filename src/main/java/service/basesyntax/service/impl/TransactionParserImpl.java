@@ -1,6 +1,6 @@
 package service.basesyntax.service.impl;
 
-import service.basesyntax.db.FruitTransaction;
+import service.basesyntax.model.FruitTransaction;
 import service.basesyntax.service.TransactionParser;
 
 public class TransactionParserImpl implements TransactionParser {

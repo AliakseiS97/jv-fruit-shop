@@ -6,6 +6,9 @@ public class TransactionReaderService {
     private final ReaderService readerService;
 
     public TransactionReaderService(ReaderService readerService) {
+        if (readerService == null) {
+            throw new NullPointerException("readerService is null");
+        }
         this.readerService = readerService;
     }
 

@@ -1,11 +1,11 @@
 package service.basesyntax.service.strategy;
 
-import java.util.Map;
-import service.basesyntax.db.FruitTransaction;
+import service.basesyntax.db.Storage;
+import service.basesyntax.model.FruitTransaction;
 
 public class ReturnHandler implements OperationHandler {
     @Override
-    public void apply(Map<String, Integer> storage, FruitTransaction transaction) {
+    public void apply(Storage storage, FruitTransaction transaction) {
         if (storage == null) {
             throw new NullPointerException("storage is null");
         }
@@ -13,7 +13,6 @@ public class ReturnHandler implements OperationHandler {
             throw new NullPointerException("transaction is null");
         }
         storage.put(transaction.getFruit(),
-                storage.getOrDefault(transaction.getFruit(),
-                        0) + transaction.getQuantity());
+                storage.get(transaction.getFruit()) + transaction.getQuantity());
     }
 }
